@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $ticket->name }}</title>
+    <title>Ticket</title>
 </head>
 <body>
-<h1>Title {{ $ticket->name }}</h1>
-<p>Body {{ $ticket->cost }}</p>
-<p>Created at: {{ $ticket->body }}</p>
+
+
+<h1>Tickets </h1>
+
+
+@foreach($tickets as $ticket)
+    <a href="
+                {{ route('tickets.show', $ticket->id) }}">{{$ticket->name}}
+    </a>
+    <br>
+    <br>
+@endforeach
 </body>
 </html>

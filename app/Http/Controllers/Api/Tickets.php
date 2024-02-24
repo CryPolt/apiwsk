@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 class Tickets extends Controller
 {
     public function index(){
-        $ticket = DB::table('tickets')->get();
-        return view('ticket', compact('ticket'));
+
+        $tickets = Ticket::latest()->get();
+        return view('tickets')->with('tickets', $tickets);
+
     }
 
     public function edit($id)
@@ -31,7 +33,7 @@ class Tickets extends Controller
 
     public function show($id)
     {
-        $ticket = Ticket::findOrFail($id);
-        return view('ticket', compact('ticket'));
+        $tickets = Ticket::find($id);
+        return view('tick')->with('tickets', $tickets);
     }
 }

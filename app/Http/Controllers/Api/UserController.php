@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
 
     public function index($id){
         $user = User::findOrFail($id); // Поиск пользователя по id, если его нет, то выдаст ошибку 404
-        return view('users');
+        return view('users')->with('user', $user);
     }
 
     public function show()
@@ -47,13 +48,10 @@ class UserController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
+            return redirect('api/log');
 
-        } catch (\Throwable $th) {
+
+        }  catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -69,6 +67,7 @@ class UserController extends Controller
     public function loginUser(Request $request)
     {
         try {
+            // validate the request
             $validateUser = Validator::make($request->all(),
                 [
                     'email' => 'required|email',
@@ -83,26 +82,20 @@ class UserController extends Controller
                 ], 401);
             }
 
-            if (!Auth::attempt($request->only(['email', 'password']))) {
+            // Attempt to authenticate the user
+            if (Auth::attempt($request->only('email', 'password'))) {
+                // If the authentication was successful, store the user's email in the session
+                Session::put('email', Auth::user()->email);
+
+                // Redirect the user to the dashboard
+                return redirect()->route('dashboard');
+            } else {
+                // If authentication failed, return an error response
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
+                    'message' => 'Invalid credentials',
                 ], 401);
             }
-
-            $user = User::where('email', $request->email)->first();
-
-            return view('dashboard');
-
-//            return response()->json([
-//                'status' => true,
-//                'message' => 'User Logged In Successfully',
-//                'token' => $user->createToken("API TOKEN")->plainTextToken,
-//                'email'  => $user->email,
-//                'name' => $user->name,
-//                'id' => $user->id
-//            ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -118,4 +111,5 @@ class UserController extends Controller
     {
         return view('log');
     }
+
 }

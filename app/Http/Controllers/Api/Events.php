@@ -12,7 +12,7 @@ class Events extends Controller
     public function index()
     {
         $events = Event::latest()->get();
-        return view('dashboard')->with('events', $events);
+        return view('events')->with('events', $events);
     }
 
     public function show($id)

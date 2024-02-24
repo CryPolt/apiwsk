@@ -28,23 +28,28 @@ Route::post('/auth/login', [UserController::class, 'loginUser'])->name('user.log
 Route::get('/log', [UserController::class, 'logForm'])->name('reg');
 
 Route::post('logout', [DashboardController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
 Route::get('/dashboard/event/{id}', [DashboardController::class, 'show'])->name('events.show');
 
-Route::get('/events', [Events::class, 'index']);
+Route::get('/events', [Events::class, 'index'])->name('event');
 Route::post('/events/create', [Events::class, 'create']);
 Route::get('/events/edit/{id}', [Events::class, 'edit'])->name('events.edit');
 Route::put('/events/update/{id}', [Events::class, 'update'])->name('events.update');
+Route::get('/events/show/{id}', [Events::class, 'show'])->name('events');
 
+
+Route::get('/tickets', [Tickets::class, 'index'])->name('tickets');
 Route::get('/tickets/edit/{id}', [Tickets::class, 'edit'])->name('tickets.edit');
 Route::put('/tickets/update/{id}', [Tickets::class, 'update'])->name('tickets.update');
 Route::get('/tickets/show/{id}', [Tickets::class, 'show'])->name('tickets.show');
 
 
-Route::get('/events/show/{id}', [Events::class, 'show'])->name('events');
 
 
-
+Route::middleware(['apiSession'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

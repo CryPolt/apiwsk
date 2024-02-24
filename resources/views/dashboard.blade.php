@@ -50,46 +50,55 @@
 <body>
 <div class="container">
     <div class="dashboard">
-        @if (Auth::check())
-            <div class="username">Welcome, ID: {{ Auth::user()->id }}!</div>
-            <div class="username">Welcome, Name: {{ Auth::user()->name }}!</div>
-            <div class="username">Welcome, Email: {{ Auth::user()->email }}!</div>
+        @if (Session::has('email'))
+            <div class="username">Welcome, Email: {{ Session::get('email') }}!</div>
+            <div class="div">
 
-            <form action="{{ route('reg') }}" method="POST">
-                @csrf
-                <button type="submit" class="button">Logout</button>
-            </form>
+                <a href="{{ route('event')}}"><h1>Events</h1></a>
+
+                <ul>
+                @foreach($events as $event)
+                        <a href="
+                {{ route('events.show', $event->id) }}">{{ $event->title }}>{{$event->slug}}
+                        </a>
+                        <br>
+                        <br>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="div">
+
+
+
+                    <a href="{{ route('tickets')}}"><h1>Tickets</h1></a>
+                <ul>
+                    @foreach($tickets as $ticket)
+                        <a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->name }}>{{$ticket->cost}}
+                            <br>
+                            <br>
+                    @endforeach
+                </ul>
+            </div>
         @else
             <p>You are not logged in.</p>
-            <a href="">Login</a>
+            <form action="{{ route('reg') }}" method="get">
+                @csrf
+                <button type="submit">Login</button>
+            </form>
         @endif
+
     </div>
 
 
-    <div class="div">
-        <h1>Events</h1>
-        <ul>
-            @foreach($events as $event)
-                <a href="
-                {{ route('events.show', $event->id) }}">{{ $event->title }}>{{$event->slug}}
-                </a>
-                <br>
-                <br>
-            @endforeach
-        </ul>
-    </div>
-    <div class="div">
-        <h1>Tickets</h1>
-        <ul>
-            @foreach($tickets as $ticket)
-                <a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->name }}>{{$ticket->cost}}
-                <br>
-                <br>
-            @endforeach
-        </ul>
-    </div>
-
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
 </div>
+
+
+
+
 </body>
 
 </html>
