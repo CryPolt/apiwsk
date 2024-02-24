@@ -43,6 +43,7 @@ class Tickets extends Controller
             'cost' => $request->cost,
             'body' => $request->body,
         ]);
+        redirect()->back();
     }
 
     public function show($id)

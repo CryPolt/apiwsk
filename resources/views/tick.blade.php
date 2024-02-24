@@ -14,6 +14,8 @@
         <p>Name: {{ $ticket->name }}</p>
         <p>Cost: {{ $ticket->cost }}</p>
         <p>Description: {{ $ticket->body }}</p>
+        <p>time create {{$ticket->created_at}}</p>
+        <p>time update {{$ticket->updated_at}}</p>
 
     @endforeach
     @foreach($tickets as $ticket)

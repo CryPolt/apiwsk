@@ -8,6 +8,7 @@
 <h1>Title {{ $event->title }}</h1>
 <p>Body {{ $event->body }}</p>
 <p>Created at: {{ $event->created_at }}</p>
+<p>time update {{$event->updated_at}}</p>
 
     <form action="{{ route('events.edit', ['id' => $event->id]) }}" method="get">
         @csrf

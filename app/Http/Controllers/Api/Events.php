@@ -23,6 +23,8 @@ class Events extends Controller
 
     public function create(Request $request)
     {
+
+
         $event = Event::create($request->all());
         return redirect('api/events');
     }

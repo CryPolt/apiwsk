@@ -15,7 +15,7 @@
     <input type="text" name="cost" value="{{$ticket->cost}}"><br>
     <label for="body">Body</label>
     <textarea id="body" name="body">{{ $ticket->body }}</textarea><br>
-    <input type="submit" value="Save">
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 </body>
 </html>

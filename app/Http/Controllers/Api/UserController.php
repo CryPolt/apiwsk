@@ -86,6 +86,8 @@ class UserController extends Controller
             if (Auth::attempt($request->only('email', 'password'))) {
                 // If the authentication was successful, store the user's email in the session
                 Session::put('email', Auth::user()->email);
+                Session::put('name', Auth::user()->name);
+
 
                 // Redirect the user to the dashboard
                 return redirect()->route('dashboard');

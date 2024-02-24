@@ -13,5 +13,6 @@ class Ticket extends Model
         'name',
         'cost',
         'body',
+        'author',
     ];
 }

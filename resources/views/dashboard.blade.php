@@ -50,8 +50,10 @@
 <body>
 <div class="container">
     <div class="dashboard">
-        @if (Session::has('email'))
+        @if (Session::has('email','name'))
             <div class="username">Welcome, Email: {{ Session::get('email') }}!</div>
+            <div class="username">Welcome, name: {{ Session::get('name') }}!</div>
+
             <div class="div">
 
                 <a href="{{ route('event')}}"><h1>Events</h1></a>
