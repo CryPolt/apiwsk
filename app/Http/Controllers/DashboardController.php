@@ -16,11 +16,11 @@ class DashboardController extends Controller
         return view('dashboard', compact('events', 'tickets'));
     }
 
-    public function show($id)
-    {
-        $event = Event::findOrFail($id);
-        return view('event', compact('event'));
-    }
+//    public function show($id)
+//    {
+//        $event = Event::findOrFail($id);
+//        return view('event', compact('event'));
+//    }
 
     public function logout(Request $request)
     {

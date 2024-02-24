@@ -24,11 +24,10 @@ class Events extends Controller
     public function create(Request $request)
     {
         $event = Event::create($request->all());
-        return response()->json([
-            'status' => true,
-            'message' => 'Event Created Successfully',
-            'event' => $event
-        ], 200);
+        return redirect('api/events');
+    }
+    public function ecreate(Request $request){
+        return view('ecreate');
     }
     public function edit($id)
     {
@@ -44,6 +43,13 @@ class Events extends Controller
             'body' => $request->body,
         ]);
 
+    }
+
+
+    public function destroy($id)
+    {
+        DB::table('events')->where('id', $id)->delete();
+        return redirect('api/events');
     }
 
 }

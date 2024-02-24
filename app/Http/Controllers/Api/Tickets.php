@@ -15,11 +15,25 @@ class Tickets extends Controller
         return view('tickets')->with('tickets', $tickets);
 
     }
+    public function create(Request $request)
+    {
+        $ticket = Ticket::create($request->all());
+        return redirect('api/tickets');
+    }
 
+    public function tcreate(){
+        return view('tcreate');
+    }
     public function edit($id)
     {
         $ticket = DB::table('tickets')->find($id);
         return view('ticket', compact('ticket'));
+    }
+
+    public function destroy($id)
+    {
+        DB::table('tickets')->where('id', $id)->delete();
+        return redirect('api/tickets');
     }
 
     public function update(Request $request, $id)
@@ -33,7 +47,9 @@ class Tickets extends Controller
 
     public function show($id)
     {
-        $tickets = Ticket::find($id);
-        return view('tick')->with('tickets', $tickets);
+        $ticket = Ticket::findOrFail($id);
+        return view('tick')->with('tickets', [$ticket]);
+
+
     }
 }

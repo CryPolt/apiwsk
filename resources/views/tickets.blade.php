@@ -17,5 +17,13 @@
     <br>
     <br>
 @endforeach
+
+<h1>Create Ticket</h1>
+<div class="">
+    <form action="{{ route('tickets.create', ['id' => $ticket->id]) }}" method="get">
+        @csrf
+        <button type="submit">Создать ticket</button>
+    </form>
+</div>
 </body>
 </html>
