@@ -51,6 +51,7 @@ Route::get('/tickets/show/{id}', [Tickets::class, 'show'])->name('tickets.show')
 
 
 
+Route::get('', [ApiController::class, 'index']);
 
 Route::middleware(['apiSession'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
