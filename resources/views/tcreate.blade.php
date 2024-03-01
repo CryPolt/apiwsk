@@ -27,6 +27,14 @@
                         <div class="form-group">
                             <label for="body">body</label>
                             <input type="text" class="form-control" id="body" name="body" required>
+                            <div class="form-group">
+                                <label for="author_id">Author:</label>
+                                <select class="form-control" id="author_id" name="author_id" required>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">save</button>
                     </form>

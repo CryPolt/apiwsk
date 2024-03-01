@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,12 +18,26 @@ class Tickets extends Controller
     }
     public function create(Request $request)
     {
-        $ticket = Ticket::create($request->all());
+        $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'cost' => 'required|numeric|unique:tickets',
+        'body' => 'required|string',
+        'author_id' => 'required|exists:users,id',
+    ]);
+
+        // Check if the author_id exists in the users table
+        if (!User::where('id', $validatedData['author_id'])->exists()) {
+            // Handle the case where the author_id doesn't exist in the users table
+            return redirect()->back()->withErrors(['author_id' => 'The selected author is invalid.']);
+        }
+
+        $ticket = Ticket::create($validatedData);
         return redirect('api/tickets');
     }
 
-    public function tcreate(){
-        return view('tcreate');
+    public function tcreate(Request $request){
+        $users = User::all();
+        return view('tcreate' , compact('users'));
     }
     public function edit($id)
     {
@@ -43,7 +58,7 @@ class Tickets extends Controller
             'cost' => $request->cost,
             'body' => $request->body,
         ]);
-        redirect()->back();
+        return redirect('api/tickets/');
     }
 
     public function show($id)

@@ -59,14 +59,20 @@
                 <a href="{{ route('event')}}"><h1>Events</h1></a>
 
                 <ul>
+                    <br>
                 @foreach($events as $event)
                         <a href="
                 {{ route('events.show', $event->id) }}">{{ $event->title }}>{{$event->slug}}
                         </a>
                         <br>
                         <br>
+                        <a href="events/create"><h3>Create Event</h3></a>
+
+
                     @endforeach
                 </ul>
+
+
             </div>
             <div class="div">
 
@@ -80,6 +86,8 @@
                             <br>
                     @endforeach
                 </ul>
+                <a href="tickets/create"><h3>Create Ticket</h3></a>
+                <br>
             </div>
         @else
             <p>You are not logged in.</p>

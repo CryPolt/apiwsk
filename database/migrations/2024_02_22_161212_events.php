@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->foreign('author_id')->references('id')->on('users');
             $table->string('title');
             $table->string('slug');
-            $table->text('body');
+            $table->date('date');
             $table->timestamps();
         });
     }

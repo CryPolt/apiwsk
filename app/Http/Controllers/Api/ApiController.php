@@ -9,8 +9,6 @@ class ApiController extends Controller
 {
     public function index(){
 
-        return response()->json([
-            'message' => 'API CONTROLLER'
-        ]);
+        return view('welcome');
     }
 }

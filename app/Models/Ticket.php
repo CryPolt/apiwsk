@@ -13,6 +13,11 @@ class Ticket extends Model
         'name',
         'cost',
         'body',
-        'author',
+        'author_id',
     ];
+
+    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }

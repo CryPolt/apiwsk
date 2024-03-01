@@ -14,6 +14,7 @@
         <p>Name: {{ $ticket->name }}</p>
         <p>Cost: {{ $ticket->cost }}</p>
         <p>Description: {{ $ticket->body }}</p>
+        <li>{{ $ticket->author->name }}</li>
         <p>time create {{$ticket->created_at}}</p>
         <p>time update {{$ticket->updated_at}}</p>
 

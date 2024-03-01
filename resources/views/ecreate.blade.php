@@ -24,11 +24,18 @@
                             <label for="slug">slug</label>
                             <input type="text" class="form-control" id="slug" name="slug" required>
                         </div>
-                        <div class="form-group">
-                            <label for="body">body</label>
-                            <input type="text" class="form-control" id="body" name="body" required>
+                            <label for="date">Date:</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+
+                            <div class="form-group">
+                                @foreach($users as $user)
+                                <input type="hidden" class="form-control" id="author_id" name="author_id" value="{{ $user->id }}">
+                            </div>
+                            @endforeach
                         </div>
+
                         <button type="submit" class="btn btn-primary">save</button>
+
                     </form>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\Events;
+use App\Http\Controllers\Api\Sessions;
 use App\Http\Controllers\Api\Tickets;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DashboardController;
@@ -50,6 +51,13 @@ Route::post('/tickets/delete/{id}', [Tickets::class, 'destroy'])->name('tickets.
 Route::get('/tickets/show/{id}', [Tickets::class, 'show'])->name('tickets.show');
 
 
+Route::get('/sessions', [Sessions::class, 'index'])->name('sessions');
+Route::get('/sessions/create', [Sessions::class, 'screate'])->name('sessions.create');
+Route::post('/sessions/ses/create', [Sessions::class, 'create'])->name('sessions.cre');
+Route::get('/sessions/edit/{id}', [Sessions::class, 'edit'])->name('sessions.edit');
+Route::put('/sessions/update/{id}', [Sessions::class, 'update'])->name('sessions.update');
+Route::post('/sessions/delete/{id}', [Sessions::class, 'destroy'])->name('sessions.delete');
+Route::get('/sessions/show/{id}', [Sessions::class, 'show'])->name('sessions.show');
 
 Route::get('', [ApiController::class, 'index']);
 

@@ -5,7 +5,7 @@
     <title>Events</title>
 </head>
 <body>
-<h1>Events</h1>
+<h1>Events</h1>c
 <ul>
     @foreach($events as $event)
         <li>{{$event->id}}</li><a href="{{ route('events.show', $event->id) }}">{{ $event->title }}</a>
